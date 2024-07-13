@@ -4,7 +4,6 @@ import dev.teletubbies.donkey.entity.UserEntity;
 import dev.teletubbies.donkey.exception.AuthenticationFailedException;
 import dev.teletubbies.donkey.exception.UserNotFoundException;
 import dev.teletubbies.donkey.repository.UserJpaRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,13 +33,5 @@ public class SignService {
                 .orElseThrow(UserNotFoundException::new);
 
         foundUserEntity.changePassword(passwordEncoder.encode(password));
-    }
-
-    @PostConstruct
-    private void postConstruct() {
-        userJpaRepository.save(new UserEntity("eric.shin (신정엽)", passwordEncoder.encode("donkey")));
-        userJpaRepository.save(new UserEntity("hazel.kwon (권기연)", passwordEncoder.encode("donkey")));
-        userJpaRepository.save(new UserEntity("hyden.lee (이현도)", passwordEncoder.encode("donkey")));
-        userJpaRepository.save(new UserEntity("noah.jo (조태현)", passwordEncoder.encode("donkey")));
     }
 }
